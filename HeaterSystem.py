@@ -1,10 +1,12 @@
 class HeaterSystem():
 
-	def __init__(self,config):
+	def __init__(self, config, nodes):
 		self.config = config
+		self.nodes = nodes
 
-	def start():
-		raise "Method start() not implemented"
-	
+	def start(self):
+		for node in self.nodes:
+			node.send('on')
+
 	def stop():
 		raise "Method stop() not implemented"
