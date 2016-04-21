@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
+from Executor import LocalExecutor
+
 class Node:
-    def send(command):
+    def send(self, command):
         return False
 
 class BTNode(Node):
@@ -11,6 +13,9 @@ class BTNode(Node):
         return True
 
 class LocalNode(Node):
-	def send(self, command):
-		print('connecting to local node')
-		return True
+
+    def __init__(self):
+        self.executor = LocalExecutor()
+
+    def send(self, command):
+        return self.executor.execute(command)
