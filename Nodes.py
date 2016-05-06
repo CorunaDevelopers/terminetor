@@ -13,7 +13,6 @@ class BTNode(Node):
         return True
 
 class LocalNode(Node):
-
     def __init__(self):
         self.executor = LocalExecutor()
 
