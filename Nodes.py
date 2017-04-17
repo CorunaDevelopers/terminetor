@@ -1,20 +1,29 @@
 # -*- coding: utf-8 -*-
 from Executor import LocalExecutor
+import serial
 
 class Node:
-    def send(self, command):
+    def send(self, command, *args):
         return False
 
 class BTNode(Node):
-    def send(self, command):
+    def __init__(self, port):
+        self.port = port
+        self.s = serial.Serial(port=port, baudrate=9600)
+
+    def send(self, command, *args):
+        self.s.write(command)
+        print self.s.readline()
         # if (connected):
         # result = btmanager.send(command)
-        print('connecting to BT node')
         return True
 
 class LocalNode(Node):
     def __init__(self):
         self.executor = LocalExecutor()
 
-    def send(self, command):
-        return self.executor.execute(command)
+    def send(self, command, *args):
+        return self.executor.execute(command, args)
+
+node = BTNode('/dev/tty.HC-06-DevB')
+node.send('on')
